@@ -1,12 +1,12 @@
 <template>
-    <div id="form">
+    <div class="form">
         <form @submit.prevent="addTask()">
             <div class="form-item">
-                <p class="formLabel">Task name:</p>
-                <input v-model="taskForm.name" type="text" name="name" id="name" class="form-style" required/>
+                <p class="formLabel">Task name</p>
+                <input v-model="taskForm.name" type="text" name="name" id="name" class="form-style" pattern="[a-zA-Z0-9]*" title="Task name must contain just letters and/or numbers." required/>
             </div>
             <div class="form-item">
-                <p class="formLabel">Task description:</p>
+                <p class="formLabel">Task description</p>
                 <input v-model="taskForm.description" type="text" name="description" id="description" class="form-style" required/>
             </div>
             <div class="form-item">
@@ -47,9 +47,9 @@
 </script>
   
 <style scoped>
-    #form {
+    .form {
         width:40%;
-        background-color: #d5f596;
+        background-color: #f6f5f5;
         border-radius: 15px;
         margin:auto;
         margin-top:80px;
@@ -80,22 +80,22 @@
     .add{
         width: 115px;
         height: 40px;
-        background-color: #95CC29;
-        border:1px solid #95CC29;
+        background-color: #a4a1a1;
+        border:1px solid #a4a1a1;
         border-radius: 19px;
         color: #fff;
         font-weight: bold;
         font-size: 16px;
     }
     .add:hover{
-        background-color: #fff; 
-        border:1px solid #95CC29; 
-        color:#95CC29; 
+        background-color: #bdbaba; 
+        border:1px solid #bdbaba; 
+        color:#fff; 
         cursor:pointer;}
 
 
     @media screen and (max-width: 1250px) {
-        #form {
+        .form {
             width: 60%;
             flex-wrap: wrap;
         }

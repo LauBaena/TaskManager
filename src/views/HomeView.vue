@@ -1,11 +1,13 @@
 <template>
   <div class="home">
-    <div v-if="tasks.length > 0">
-      <div v-for="task in tasks" :key="task.name" :task="task">
+    <div v-if="allTasks.length > 0">
+      <h2 class="title">Tasks</h2>
+      <div v-if="tasks.length <= 0">
+        <p class="title">No more pending tasks</p>
+      </div>
+      <div v-else v-for="task in tasks" :key="task.name" :task="task">
         <div class="taskCard">
-          <div>
-            <h3>{{ task.name }}</h3>
-          </div>
+          <h3>{{ task.name }}</h3>
           <p>{{ task.description }}</p>
           <div class="buttons">
               <p class="buttons-link" @click="modifyTask(task.name)">Modify</p>
@@ -18,9 +20,7 @@
         <h2 class="title">Completed Tasks</h2>
         <div v-for="task in completedTasks" :key="task.name" :task="task">
           <div class="taskCard">
-            <div class="nameContainer">
-              <h3 class="name">{{ task.name }}</h3>
-            </div>
+            <h3>{{ task.name }}</h3>
             <p>{{ task.description }}</p>
             <div class="buttons">
                 <p class="buttons-link" @click="deleteTask(task.name)">Delete</p> 
@@ -54,6 +54,10 @@ export default {
       await tasksStore.loadLocalStorage();
     });
 
+    const allTasks = computed(() => {
+      return tasksStore.allTasks;
+    });
+
     const tasks = computed(() => {
       return tasksStore.tasks;
     });
@@ -72,12 +76,13 @@ export default {
       await tasksStore.loadLocalStorage();
     }
 
-    function modifyTask(task_name) {
+    async function modifyTask(task_name) {
       router.push({path: `/modifyTask/${task_name}`});
     }
 
     return{
       tasksStore,
+      allTasks,
       tasks,
       completedTasks,
       deleteTask,
@@ -96,7 +101,7 @@ export default {
 }
 .buttons-link{
     text-decoration: inherit;
-    color: #5e7b24;
+    color: #747573;
     margin-bottom: 15px;
     cursor: pointer;
     margin-right: 25px;
@@ -108,7 +113,7 @@ export default {
 
 .taskCard{
   width:40%;
-  background-color: #d5f596;
+  background-color: #f6f5f5;
   border-radius: 15px;
   margin:auto;
   margin-top:20px;

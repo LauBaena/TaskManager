@@ -38,7 +38,7 @@ export default defineComponent({
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #d5f596;
+        background-color: #f6f5f5;
     }
 
     .logo {

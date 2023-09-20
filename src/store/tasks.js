@@ -31,20 +31,30 @@ export const useTasksStore = defineStore("tasks", {
         })
     },
 
+    async modifyTextTask(modifiedTask){
+        const index = this.allTasks.findIndex(task => task.name === modifiedTask.name);
+        if (index !== -1){
+            this.allTasks[index] = modifiedTask;
+            const tasksAsJSON = JSON.stringify(this.allTasks);
+            localStorage.setItem('tasks', tasksAsJSON);
+            await router.push({ path: '/' });
+        }
+    },
+
     async markAsCompleted(task_name){
         this.allTasks.forEach(task =>{
             if(task.name === task_name){
                 task.completed = true;
             }
         })
-        let tasksAsJSON = JSON.stringify(this.allTasks);
+        const tasksAsJSON = JSON.stringify(this.allTasks);
         localStorage.setItem('tasks', tasksAsJSON);
     },
 
     async deleteTask(task_name){
         //Save all tasks except for the task with the specific name
         this.allTasks = this.allTasks.filter(task => task.name !== task_name);
-        let tasksAsJSON = JSON.stringify(this.allTasks);
+        const tasksAsJSON = JSON.stringify(this.allTasks);
         localStorage.setItem('tasks', tasksAsJSON);
     },
 
@@ -54,7 +64,7 @@ export const useTasksStore = defineStore("tasks", {
             return;
         }else{
             this.allTasks.push(newTask);
-            let tasksAsJSON = JSON.stringify(this.allTasks);
+            const tasksAsJSON = JSON.stringify(this.allTasks);
             localStorage.setItem('tasks', tasksAsJSON);
             await router.push({ path: '/' });
         }
